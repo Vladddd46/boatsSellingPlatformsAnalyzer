@@ -27,7 +27,7 @@ def json_to_ad(json_ad):
         year_built=json_ad.get("year_built", None),
         ad_date=json_ad.get("ad_date", None),
         views=json_ad.get("views", None),
-        aid=boat_info.get("id", None),
+        aid=json_ad.get("id", None),
         other=json_ad.get("other", None),
     )
     return ad
