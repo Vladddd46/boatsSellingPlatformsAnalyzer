@@ -11,6 +11,7 @@ def boat24_json_to_ad(boat_info):
         year_built=boat_info.get("year_built", None),
         ad_date=boat_info.get("ad_date", None),
         views=boat_info.get("views", None),
+        aid=boat_info.get("id", None),
         other=boat_info.get("other", None),
     )
     return ad
@@ -26,6 +27,7 @@ def json_to_ad(json_ad):
         year_built=json_ad.get("year_built", None),
         ad_date=json_ad.get("ad_date", None),
         views=json_ad.get("views", None),
+        aid=boat_info.get("id", None),
         other=json_ad.get("other", None),
     )
     return ad

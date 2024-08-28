@@ -8,6 +8,7 @@ class Ad:
         year_built,
         ad_date,
         views,
+        aid,
         other=None,
     ):
         self.name = name
@@ -17,13 +18,14 @@ class Ad:
         self.year_built = year_built
         self.ad_date = ad_date
         self.views = views
+        self.aid = aid
         self.other = other
 
     def __repr__(self):
         return (
             f"Ad(name={self.name}, currency={self.currency}, "
             f"price={self.price if self.price != -1 else "Price on Request"}, favorites_count={self.favorites_count}, "
-            f"year_built={self.year_built}, ad_date={self.ad_date}, views={self.views}, "
+            f"year_built={self.year_built}, ad_date={self.ad_date}, views={self.views}, id={self.aid}, "
             f"other={self.other})"
         )
 
@@ -36,5 +38,6 @@ class Ad:
             "year_built": self.year_built,
             "ad_date": self.ad_date,
             "views": self.views,
+            "id": self.aid,
             "other": self.other,
         }

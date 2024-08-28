@@ -128,7 +128,7 @@ class ReportBuilder:
         # Write num_of_ads_by_day table before the ads list (starting from the 4th column)
         num_of_ads_start_col = 4
         ws[f"{get_column_letter(num_of_ads_start_col)}1"] = "Date"
-        ws[f"{get_column_letter(num_of_ads_start_col + 1)}1"] = "Ads Count"
+        ws[f"{get_column_letter(num_of_ads_start_col + 1)}1"] = "Ads added"
         ws[f"{get_column_letter(num_of_ads_start_col)}1"].font = bold_font
         ws[f"{get_column_letter(num_of_ads_start_col + 1)}1"].font = bold_font
         ws[f"{get_column_letter(num_of_ads_start_col)}1"].fill = header_fill
@@ -164,6 +164,7 @@ class ReportBuilder:
             "Year Built",
             "Ad Date",
             "Views",
+            "ID",
         ]
 
         for col_num, header in enumerate(ads_headers):
@@ -184,6 +185,7 @@ class ReportBuilder:
             ws[f"{get_column_letter(ads_start_col + 4)}{row_num}"] = ad.year_built
             ws[f"{get_column_letter(ads_start_col + 5)}{row_num}"] = ad.ad_date
             ws[f"{get_column_letter(ads_start_col + 6)}{row_num}"] = ad.views
+            ws[f"{get_column_letter(ads_start_col + 7)}{row_num}"] = ad.aid
 
             # Apply borders to ad data
             for col_num in range(ads_start_col, ads_start_col + len(ads_headers)):
