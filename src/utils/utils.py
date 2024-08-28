@@ -15,6 +15,7 @@ class DateTimeEncoder(json.JSONEncoder):
             return obj.isoformat()
         return super().default(obj)
 
+
 # Custom JSON Decoder for handling datetime objects
 def datetime_decoder(dct):
     for key, value in dct.items():
@@ -36,3 +37,7 @@ def read_json_file(path):
     with open(path, "r") as json_file:
         json_data = json.load(json_file, object_hook=datetime_decoder)
     return json_data
+
+
+def convert_strdate_to_date(date_string):
+    return datetime.strptime(date_string, "%d.%m.%Y").date()
