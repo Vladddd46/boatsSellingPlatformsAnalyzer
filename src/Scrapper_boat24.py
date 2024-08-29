@@ -100,6 +100,8 @@ class Scrapper_boat24(Scrapper):
                 if price:
                     tmp = price.get_text(strip=True).split()
                     boat_info["currency"] = tmp[0]
+                    if boat_info["currency"] == "£":
+                        boat_info["currency"] = "GBP"
                     try:
                         boat_info["price"] = float(
                             tmp[1].split(",")[0].replace(".", "")
@@ -113,12 +115,11 @@ class Scrapper_boat24(Scrapper):
                 for tag in favorites_tag_tags:
                     boat_info["favorites_count"] = 0
                     if "In the favorites of " in tag.text:
-                        boat_info["favorites_count"] = (
-                            tag.text.split("In the favorites of")[1].strip().split()[0]
-                        )
+                        boat_info["favorites_count"] = tag.text.split("In the favorites of")[1].strip().split()[0]
                         if boat_info["favorites_count"] == "one":
                             boat_info["favorites_count"] = 1
                         boat_info["favorites_count"] = int(boat_info["favorites_count"])
+                        break
 
                 # Extract year_built
                 year_built = soup.find("span", string="Year Built")

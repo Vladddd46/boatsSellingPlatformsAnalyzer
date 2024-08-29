@@ -16,6 +16,7 @@ class AdsStatistics:
         favorites_sum,
         num_of_ads_by_day,
         average_ads_by_day,
+        other
     ):
         self.total_ads = total_ads
         self.total_views = total_views
@@ -32,6 +33,7 @@ class AdsStatistics:
         self.favorites_sum = favorites_sum
         self.num_of_ads_by_day = num_of_ads_by_day
         self.average_ads_by_day = average_ads_by_day
+        self.other = other
 
     def __str__(self):
         return (
@@ -51,6 +53,7 @@ class AdsStatistics:
             f"Favorites Sum: {self.favorites_sum}\n"
             f"Number of Ads by Day: {self.num_of_ads_by_day}\n"
             f"Average ads by day: {self.average_ads_by_day}\n"
+            f"Other: {self.other}\n"
         )
 
     def __repr__(self):
@@ -60,5 +63,5 @@ class AdsStatistics:
             f"min_year_built={self.min_year_built}, max_year_built={self.max_year_built}, "
             f"average_price_per_currency={self.average_price_per_currency}, min_price_for_each_currency={self.min_price_for_each_currency}, "
             f"max_price_for_each_currency={self.max_price_for_each_currency}, currency_usage_count={self.currency_usage_count}, "
-            f"favorites_sum={self.favorites_sum}, num_of_ads_by_day={self.num_of_ads_by_day}, average_ads_by_day={self.average_ads_by_day})"
+            f"favorites_sum={self.favorites_sum}, num_of_ads_by_day={self.num_of_ads_by_day}, average_ads_by_day={self.average_ads_by_day}, other={self.other})"
         )

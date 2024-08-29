@@ -1,7 +1,7 @@
 import os
 import json
 from datetime import datetime
-
+import requests
 
 def is_file_exist(path):
     return os.path.exists(path)
@@ -41,3 +41,33 @@ def read_json_file(path):
 
 def convert_strdate_to_date(date_string):
     return datetime.strptime(date_string, "%d.%m.%Y").date()
+
+
+# converts other currencies to euro based on curreng exchange rate.
+def convert_to_euro(currency: str, amount: float) -> float:
+    def fetch_exchange_rates(base_currency: str = "EUR"):
+        url = f"https://api.exchangerate-api.com/v4/latest/{base_currency}"
+        
+        response = requests.get(url)
+        if response.status_code != 200:
+            raise Exception(f"Error fetching exchange rates: {response.status_code}")
+        
+        return response.json()["rates"]
+
+    try:
+        if is_file_exist("data/exchange_rates.json") == True:
+            rates = read_json_file("data/exchange_rates.json")
+        else:
+            rates = fetch_exchange_rates("EUR")
+            save_json_data("data/exchange_rates.json", rates)
+        
+        currency = currency.upper()
+        
+        if currency not in rates:
+            return 0
+            # raise ValueError(f"Unsupported currency: {currency}")
+        
+        euro_amount = amount / rates[currency]
+        return euro_amount
+    except:
+        return 0

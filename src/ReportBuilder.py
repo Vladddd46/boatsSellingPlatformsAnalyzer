@@ -11,7 +11,7 @@ class ReportBuilder:
 
     def build_report(self, filename="report.xlsx"):
         # Generate the current date and append it to the filename
-        current_date = datetime.now().strftime("%Y-%m-%d")
+        current_date = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename_with_date = (
             f"{filename.split('.')[0]}_{current_date}.{filename.split('.')[-1]}"
         )
@@ -45,17 +45,21 @@ class ReportBuilder:
         ws["A1"] = "Ads Statistics"
         ws["A1"].font = bold_font
 
+
         # Writing basic statistics (left side of the sheet)
         stats_data = [
             ("Total Ads", self.statistics.total_ads),
             ("Total Views", self.statistics.total_views),
             ("Average Views", self.statistics.average_views),
+            ("Sum of favorits", self.statistics.favorites_sum),
             ("Oldest Ad Date", self.statistics.oldest_date),
             ("Newest Ad Date", self.statistics.newest_date),
             ("Ads with No Date", self.statistics.ads_with_no_date),
-            ("Min Year Built", self.statistics.min_year_built),
-            ("Max Year Built", self.statistics.max_year_built),
+            ("Min Year Built(year of boat)", self.statistics.min_year_built),
+            ("Max Year Built(year of boat)", self.statistics.max_year_built),
             ("Average Ads per Day", self.statistics.average_ads_by_day),
+            ("Ads over 10000 Euro", self.statistics.other["price_division"]["over_10000_euro"]),
+            ("Ads under 10000 Euro", self.statistics.other["price_division"]["under_10000_euro"])
         ]
 
         for row_num, (label, value) in enumerate(stats_data, 2):

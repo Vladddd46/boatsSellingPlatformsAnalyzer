@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from src.utils.utils import convert_strdate_to_date
+from src.utils.utils import convert_strdate_to_date, convert_to_euro
 from src.entities.AdsStatistics import AdsStatistics
 
 
@@ -32,6 +32,9 @@ class StatisticsCalculator:
                 - convert_strdate_to_date(oldest_date)
             ).days
         )
+        divided_price_by_euro = self.__divide_ads_by_euro_price(10000)
+        other = {"price_division": {"over_10000_euro": divided_price_by_euro["over"], "under_10000_euro": divided_price_by_euro["under"]}}
+
         return AdsStatistics(
             total_ads=total_ads,
             total_views=total_views,
@@ -48,7 +51,21 @@ class StatisticsCalculator:
             favorites_sum=favorites_sum,
             num_of_ads_by_day=num_of_ads_by_day,
             average_ads_by_day=average_ads_by_day,
+            other=other
         )
+
+
+    def __divide_ads_by_euro_price(self, divide_price):
+        res = {"over": 0, "under": 0}
+        for i in self.m_ads:
+            tmp_price = i.price
+            if i.currency != "EUR":
+                tmp_price = convert_to_euro(i.currency, i.price)
+            if tmp_price >= divide_price:
+                res["over"] += 1
+            else:
+                res["under"] += 1
+        return res
 
     def __get_ads_by_date(self, target_date):
         matched_ads = []
